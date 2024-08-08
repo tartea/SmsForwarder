@@ -39,7 +39,7 @@ jobs:
       - name: Checkout Android Keystore
         uses: actions/checkout@v4
         with:
-          repository: pppscn/keystore
+          repository: tartea/keystore
           token: ${{ secrets.TOKEN }} # 连接仓库的token,需要单独配置
           path: keystore # 仓库的根目录名
       # 打包release
@@ -68,7 +68,7 @@ jobs:
 
                   response=$(curl --retry 3 -X POST -H "Cache-Control: no-cache" \
                   -H "Content-Type: application/json" \
-                  -H "Cookie: xupdate_token=${{ secrets.XUPDATE_TOKEN }}" \
+                  -H "Cookie: xupdate_token=${{ secrets.SmsForwarder }}" \
                   -H "X-Token: ${{ secrets.X_TOKEN }}" \
                   -d "{\"appKey\":\"${applicationId}\",\"versionName\":\"${versionName}\",\"versionCode\":\"${versionCode}\",\"modifyContent\":\"\",\"updateStatus\":1,\"gitCommitId\":\"${gitCommitId}\",\"buildTime\":\"${buildTime}\",\"uploadTime\":\"${buildTime}\"}" \
                   ${{ secrets.URL_ADD_VERSION }})
@@ -79,7 +79,7 @@ jobs:
                   if [[ $version_id =~ ^[0-9]+$ ]]; then
                       curl --retry 3 -X POST -H "Cache-Control: no-cache" \
                       -H "Content-Type: multipart/form-data" \
-                      -H "Cookie: xupdate_token=${{ secrets.XUPDATE_TOKEN }}" \
+                      -H "Cookie: xupdate_token=${{ secrets.SmsForwarder }}" \
                       -H "X-Token: ${{ secrets.X_TOKEN }}" \
                       -F "file=@${{ env.output }}/${apk};filename=${apk}" \
                       -F "versionId=${version_id}" \
