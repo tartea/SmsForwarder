@@ -152,6 +152,7 @@ class WebhookUtils {
                     }
                     .replace("[timestamp]", timestamp.toString())
                     .replace("[sign]", sign)
+                    .replace("[json_content]", content)
                 Log.d(TAG, "method = ${setting.method}, Url = $requestUrl, bodyMsg = $bodyMsg")
                 when (setting.method) {
                     "PUT" -> XHttp.put(requestUrl).keepJson(true).upJson(bodyMsg)
